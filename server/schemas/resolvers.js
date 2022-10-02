@@ -1,25 +1,25 @@
-const { Thought } = require('../models');
+const { Question } = require('../models');
 
 const resolvers = {
   Query: {
-    thoughts: async () => {
-      return Thought.find();
+    questions: async () => {
+      return Question.find();
     },
 
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    question: async (parent, { questionId }) => {
+      return Question.findOne({ _id: questionId });
     },
   },
 
   Mutation: {
-    addThought: async (parent, { thoughtText, thoughtAuthor }) => {
-      return Thought.create({ thoughtText, thoughtAuthor });
+    addQuestion: async (parent, { questionText }) => {
+      return Question.create({ questionText,  });
     },
-    addComment: async (parent, { thoughtId, commentText }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
+    addAnswer: async (parent, { questionId, questionText }) => {
+      return Question.findOneAndUpdate(
+        { _id: questionId },
         {
-          $addToSet: { comments: { commentText } },
+          $addToSet: { anwers: { answerText } },
         },
         {
           new: true,
@@ -27,13 +27,13 @@ const resolvers = {
         }
       );
     },
-    removeThought: async (parent, { thoughtId }) => {
-      return Thought.findOneAndDelete({ _id: thoughtId });
+    removeQuestion: async (parent, { questionId }) => {
+      return Question.findOneAndDelete({ _id: questionId });
     },
-    removeComment: async (parent, { thoughtId, commentId }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        { $pull: { comments: { _id: commentId } } },
+    removeAnswer: async (parent, { questionId, answerId }) => {
+      return Question.findOneAndUpdate(
+        { _id: questionId },
+        { $pull: { answers: { _id: answerId } } },
         { new: true }
       );
     },
