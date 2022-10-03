@@ -10,7 +10,7 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const uri = process.env.MONGODB_URI;
+const uri = process.env.ATLAS_URL;
 
 const server = new ApolloServer({
   typeDefs,
