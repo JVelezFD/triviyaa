@@ -1,5 +1,5 @@
 {
-  "name": "mern-server",
+  "name": "triviyaa-server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -15,7 +15,10 @@
     "apollo-server-express": "^3.6.2",
     "express": "^4.17.2",
     "graphql": "^16.3.0",
-    "mongoose": "^6.2.0"
+    "mongoose": "^6.2.0",
+    "dotenv": "^16.0.3",
+    "bcrypt": "^5.0.1",
+    "mongodb": "^4.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
