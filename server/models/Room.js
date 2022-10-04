@@ -22,6 +22,12 @@ const roomSchema = new Schema({
     type: String,
     allowNull: false
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
+
   questions: [
     {
       type: Schema.Types.ObjectId,
