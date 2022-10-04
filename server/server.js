@@ -1,6 +1,7 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+const { authMiddleware } = require('./utils/auth');
 require("dotenv").config();
 const cors = require('cors');
 const bodyParser = require('body-parser'); 
@@ -15,6 +16,7 @@ const uri = process.env.ATLAS_URL;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware,
 });
 
 app.use('*', cors());

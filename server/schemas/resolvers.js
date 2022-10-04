@@ -1,16 +1,16 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Question, Room, Users } = require('../models');
+const { Question, Room, User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {  
     
     users: async () => {
-      return Users.find().populate('rooms');
+      return User.find().populate('rooms');
     },
 
     user: async (parent, {name }) => {
-    return Users.findOne({ name }).populate('rooms');
+    return User.findOne({ name }).populate('rooms');
     },
     
     rooms: async (parent, { name }) => {
@@ -28,17 +28,18 @@ const resolvers = {
     question: async (parent, { questionId }) => {
       return Question.findOne({ _id: questionId }).populate('answers');
     },
+  },
   
   
   Mutation: {
 
     addUser: async (parent, { name, email, password }) => {
-      const user = await Users.create({ name, email, password });
+      const user = await User.create({ name, email, password });
       const token = signToken(user);
       return { token, user };
     },
     login: async (parent, { email, password }) => {
-      const user = await Users.findOne({ email });
+      const user = await User.findOne({ email });
 
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
@@ -55,7 +56,7 @@ const resolvers = {
       return { token, user };
     },
 
-    addRoom: async (parent, { questionText }, context) => {
+    addRoom: async (parent, { roomText, roomTitle, roomDesc, roomOptions, }, context) => {
       if (context.user) {
         const room = await Room.create({
           roomText,
@@ -66,35 +67,90 @@ const resolvers = {
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { questions: question._id } }
+          { $addToSet: { rooms: room._id } }
         );
 
-        return question;
+        return room;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
 
-    addQuestion: async (parent, { questionText }) => {
-      return Question.create({ questionText,  });
+    addQuestion: async (parent, { roomId, questionText }, context) => {
+      if (context.user) {
+        return Room.findOneAndUpdate(
+          { _id: roomId },
+          {
+            $addToSet: {
+              questions: { questionText },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
-    addQuestion: async (parent, { questionText }) => {
-      return Question.create({ questionText,  });
+
+    addAnswer: async (parent, { questionId, answerText }, context) => {
+      if (context.user) {
+        return Question.findOneAndUpdate(
+          { _id: questionId },
+          {
+            $addToSet: {
+              answers: { answerText },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
-    addAnswer: async (parent, { questionId, questionText }) => {
-      return Question.findOneAndUpdate(
-        { _id: questionId },
-        {
-          $addToSet: { anwers: { answerText } },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
+    removeRoom: async (parent, { roomId }, context) => {
+      if (context.user) {
+        const room = await Room.findOneAndDelete({
+          _id: roomId,
+          roomText,
+          roomTitle, 
+          roomDesc,
+          roomOptions,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { rooms: room._id } }
+        );
+
+        return room;
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
-    removeQuestion: async (parent, { questionId }) => {
-      return Question.findOneAndDelete({ _id: questionId });
+ 
+    removeQuestion: async (parent, { roomId, questionId }, context) => {
+      if (context.user) {
+        return Room.findOneAndUpdate(
+          { _id: roomId },
+          {
+            $pull: {
+              questions: {
+                _id: questionId,
+                 },
+            },
+          },
+          { new: true,
+           
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
+
+
+
     removeAnswer: async (parent, { questionId, answerId }) => {
       return Question.findOneAndUpdate(
         { _id: questionId },
@@ -103,7 +159,7 @@ const resolvers = {
       );
     },
   },
-},
 };
+
 
 module.exports = resolvers;
