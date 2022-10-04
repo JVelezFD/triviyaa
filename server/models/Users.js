@@ -19,10 +19,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  questions: [
+  rooms: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Questions'
+      ref: 'Room'
     },
   ],
 });
