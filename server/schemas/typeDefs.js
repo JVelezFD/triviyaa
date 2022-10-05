@@ -1,30 +1,60 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Thought {
+  type User {
+  _id: ID
+  name: String
+  email: String
+  password: String
+  rooms: [Room]!
+}
+
+ type Room {
     _id: ID
-    thoughtText: String
-    thoughtAuthor: String
+    roomText: String
+    roomTitle: String
+    roomDesc: String
+    roomOptions: String
     createdAt: String
-    comments: [Comment]!
+    questions: [Question]!
   }
 
-  type Comment {
+  type Question {
     _id: ID
-    commentText: String
+    questionText: String
+    createdAt: String
+    answers: [Answer]!
+  }
+ 
+  type Answer {
+    _id: ID
+    answerText: String
     createdAt: String
   }
-
+  type Auth {
+    token: ID!
+    user: User
+  }
   type Query {
-    thoughts: [Thought]!
-    thought(thoughtId: ID!): Thought
+    questions: [Question]
+    question(quesitonText: String!): Question
+    answers(questionText: String): [Answer]
+    answer(answerId: ID!): Answer
+    users: [User]
+    user(name: String!): User
+    rooms(name: String): [Room]
+    room(roomId: ID!): Room
   }
 
   type Mutation {
-    addThought(thoughtText: String!, thoughtAuthor: String!): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    addUser(name: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addQuestion(roomId: String!, questionText: String!): Room
+    addRoom(userId: ID!, roomText: String!, roomTitle: String!, roomDesc: String!, roomOptions: String!): User
+    addAnswer(questionId: ID!, answerText: String!): Question
+    removeQuestion(questionId: ID!): Question
+    removeAnswer(questionId: ID!, answerId: ID!): Question
+    removeRoom(roomId: ID!): User 
   }
 `;
 

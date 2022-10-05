@@ -1,22 +1,22 @@
 const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const path = require('path');
+const { authMiddleware } = require('./utils/auth');
 require("dotenv").config();
 const cors = require('cors');
 const bodyParser = require('body-parser'); 
-const { ApolloServer } = require('apollo-server-express');
-const path = require('path');
-
-const url= process.env.ATLAS_URL;
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-
+const uri = process.env.ATLAS_URL;
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware,
 });
 
 app.use('*', cors());
