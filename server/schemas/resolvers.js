@@ -9,7 +9,7 @@ const resolvers = {
       return User.find().populate('rooms');
     },
 
-    user: async (parent, {name }) => {
+    user: async (parent, { name }) => {
     return User.findOne({ name }).populate('rooms');
     },
     
