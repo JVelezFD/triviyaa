@@ -38,7 +38,7 @@ const typeDefs = gql`
   type Query {
     questions: [Question]
     question(quesitonText: String!): Question
-    answers(questionText: String): [Answer]
+    answers(answerText: String): [Answer]
     answer(answerId: ID!): Answer
     users: [User]
     user(name: String!): User
@@ -49,8 +49,8 @@ const typeDefs = gql`
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addQuestion(roomId: String!, questionText: String!): Room
-    addRoom(userId: ID!, roomText: String!, roomTitle: String!, roomDesc: String!, roomOptions: String!): User
+    addQuestion(roomId: String!, questionText: String!): Question
+    addRoom(userId: ID!, roomText: String!, roomTitle: String!, roomDesc: String!, roomOptions: String!): Room
     addAnswer(questionId: ID!, answerText: String!): Question
     removeQuestion(questionId: ID!): Question
     removeAnswer(questionId: ID!, answerId: ID!): Question

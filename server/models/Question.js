@@ -5,7 +5,7 @@ const dateFormat = require('../utils/dateFormat');
 const questionSchema = new Schema({
   questionText: {
     type: String,
-    required: 'Question Needs to be created',
+    required: true,
     minlength: 1,
     maxlength: 750,
     trim: true,
@@ -19,7 +19,7 @@ const questionSchema = new Schema({
       {
         answerText: {
           type: String,
-          required: true,
+          trim: true,
           minlength: 1,
           maxlength: 500,
         },
