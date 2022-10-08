@@ -60,14 +60,14 @@ const RoomForm = () => {
 
   return (
     <div>
-      <h3>What's on your techy mind?</h3>
+      <h3>Host your own Trivia Night!</h3>
 
       <p
         className={`m-0 ${
           characterCount === 280 || error ? 'text-danger' : ''
         }`}
       >
-        Character Count: {characterCount}/280
+        Create a room below
         {error && <span className="ml-2">Something went wrong...</span>}
       </p>
       <form
@@ -77,7 +77,7 @@ const RoomForm = () => {
         <div className="col-12">
           <textarea
             name="roomText"
-            placeholder="Here's a new thought..."
+            placeholder="Name your Trivia Room"
             value={formState.roomText}
             className="form-input w-100"
             style={{ lineHeight: '1.5' }}
@@ -87,7 +87,7 @@ const RoomForm = () => {
         <div className="col-12 col-lg-9">
           <input
             name="roomTitle"
-            placeholder="Add your name to get credit for the thought..."
+            placeholder="Provide a Host Name"
             value={formState.roomTitle}
             className="form-input w-100"
             onChange={handleChange}
