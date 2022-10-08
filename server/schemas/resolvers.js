@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Question, Room, User } = require('../models');
+const { Question, Room, User, Answer } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -9,25 +9,35 @@ const resolvers = {
       return User.find().populate('rooms');
     },
 
-    user: async (parent, { name }) => {
-      return User.findOne({ name }).populate('rooms');
+    user: async (parent, { userId }) => {
+      return User.findOne({ _id: userId }).populate('rooms');
     },
 
     rooms: async (parent, { name }) => {
       const params = name ? { name } : {}
+      console.log(params);
       return Room.find(params).populate('questions').sort({ createdAt: -1 });
     },
     room: async (parent, { roomId }) => {
       return Room.findOne({ _id: roomId }).populate('questions');
     },
 
-    questions: async (parent, { roomTitle }) => {
-      const params = roomTitle ? { roomTitle } : {}
+    questions: async (parent, { name }) => {
+      const params = name ? { name } : {}
+      console.log(params);
       return Question.find(params).populate('answers').sort({ createdAt: -1 });
     },
     question: async (parent, { questionId }) => {
       return Question.findOne({ _id: questionId }).populate('answers');
     },
+    // questions: async (parent, { questionText }) => {
+    //   const params = questionText ? { questionText } : {}
+    //   return Question.find(params).populate('answers').sort({ createdAt: -1 });
+    // },
+    // question: async (parent, { questionId }) => {
+    //   return Question.findOne({ _id: questionId }).populate('answers');
+    // },
+
   },
 
 
@@ -99,13 +109,13 @@ const resolvers = {
 
     addAnswer: async (parent, { questionId, answerText }, context) => {
       // if (context.user) {
-      // const answer = await Question.create({
-      //     answerText,
-      //     });
+      const answer = await Answer.create({
+          answerText,
+          });
         await Question.findOneAndUpdate(
           { _id: questionId },
           {
-            $addToSet: {answers: answerText },
+            $addToSet: {answers: answer._id },
           },
           {
             new: true,
@@ -136,7 +146,7 @@ const resolvers = {
     },
 
     removeQuestion: async (parent, { roomId, questionId }, context) => {
-      if (context.user) {
+     // if (context.user) {
         return Room.findOneAndUpdate(
           { _id: roomId },
           {
@@ -151,8 +161,8 @@ const resolvers = {
 
           }
         );
-      }
-      throw new AuthenticationError('You need to be logged in!');
+      // }
+      // throw new AuthenticationError('You need to be logged in!');
     },
 
 

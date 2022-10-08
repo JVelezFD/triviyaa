@@ -2,40 +2,31 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 
-const questionSchema = new Schema({
-  questionText: {
+const answerSchema = new Schema({
+  answerText: {
     type: String,
     minlength: 0,
     maxlength: 750,
     trim: true,
+    allowNull: true,
   },
   createdAt: {
     type: Date,
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-      answers:[
-          {
-            type: Schema.Types.ObjectId,
-            ref: 'Answer'
-          },
-    ],
+    
 },
 {
   toJSON: {
     virtuals: true,
     getters: true
   }},
-
 );
 
-questionSchema
-.get(function () {
-  return `${this.questionText}`;
-})
 
 
 
-const Question = model('Question', questionSchema);
+const Answer = model('Answer', answerSchema);
 
-module.exports = Question;
+module.exports = Answer;
