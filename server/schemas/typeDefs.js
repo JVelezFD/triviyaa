@@ -7,6 +7,8 @@ const typeDefs = gql`
   email: String
   password: String
   rooms: [Room]!
+  questions: [Question]!
+  answers: [Answer]!
 }
 
  type Room {
@@ -17,6 +19,7 @@ const typeDefs = gql`
     roomOptions: String
     createdAt: String
     questions: [Question]!
+    answers: [Answer]!
   }
 
   type Question {
@@ -36,24 +39,24 @@ const typeDefs = gql`
     user: User
   }
   type Query {
-    questions: [Question]
-    question(quesitonText: String!): Question
-    answers(questionText: String): [Answer]
+    questions: [Question]!
+    question(quesitonId: ID!): Question
+    answers: [Answer]!
     answer(answerId: ID!): Answer
-    users: [User]
-    user(name: String!): User
-    rooms(name: String): [Room]
+    users: [User]!
+    user(userId: ID!): User
+    rooms: [Room]!
     room(roomId: ID!): Room
   }
 
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addQuestion(roomId: String!, questionText: String!): Room
-    addRoom(userId: ID!, roomText: String!, roomTitle: String!, roomDesc: String!, roomOptions: String!): User
-    addAnswer(questionId: ID!, answerText: String!): Question
-    removeQuestion(questionId: ID!): Question
-    removeAnswer(questionId: ID!, answerId: ID!): Question
+    addQuestion(roomId: String!, questionText: String!): Question
+    addRoom(userId: ID!, roomText: String!, roomTitle: String!, roomDesc: String!, roomOptions: String!): Room
+    addAnswer(questionId: ID!, answerText: String!): Answer
+    removeQuestion( roomId: ID! , questionId: ID!): Question
+    removeAnswer(questionId: ID!, answerId: ID!): Answer
     removeRoom(roomId: ID!): User 
   }
 `;
