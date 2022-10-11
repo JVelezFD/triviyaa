@@ -30,7 +30,7 @@ const RoomForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    let roomCode = generateID('');
+    let roomCode = await generateID('');
     try {
       const { data } = await addRoom({
         variables: {
