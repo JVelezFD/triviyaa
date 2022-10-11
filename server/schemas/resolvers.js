@@ -57,7 +57,7 @@ const resolvers = {
     },
 
     addRoom: async (parent, { roomText, roomTitle, roomDesc, roomOptions, }, context) => {
-      if (context.user) {
+      // if (context.user) {
         const room = await Room.create({
           roomText,
           roomTitle, 
@@ -71,7 +71,7 @@ const resolvers = {
         );
 
         return room;
-      }
+      // }
       throw new AuthenticationError('You need to be logged in!');
     },
 
