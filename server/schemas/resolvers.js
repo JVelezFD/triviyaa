@@ -66,6 +66,7 @@ const resolvers = {
       return { token, user };
     },
 
+
     addRoom: async (parent, { userId, roomText, roomTitle, roomDesc, roomOptions, }, context) => {
       // if (context.user) {
       const room = await Room.create({
@@ -87,6 +88,7 @@ const resolvers = {
       return room;
       // }
       // throw new AuthenticationError('You need to be logged in!');
+
     },
 
     addQuestion: async (parent, { roomId, questionText }, context) => {
