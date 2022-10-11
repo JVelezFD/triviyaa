@@ -17,18 +17,14 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_ROOM = gql`
-  mutation addRoom($roomId: ID!, $roomText: String!, $roomTitle: String!, $roomDesc: String!, $roomOptions: String!) {
-    addRoom(roomId: $roomId, roomText: $roomText, roomTitle: $roomTitle, roomDesc: $roomDesc, roomOptions: $roomOptions) {
-      _id
-      roomText
-      roomTitle
-      roomDesc
-      roomOptions
-      createdAt
-      questions {
-        _id
-        questionText
-      }
-    }
+mutation addRoom($userId: ID!, $roomText: String!, $roomTitle: String!, $roomDesc: String!, $roomOptions: String!) {
+  addRoom(userId: $userId, roomText: $roomText, roomTitle: $roomTitle, roomDesc: $roomDesc, roomOptions: $roomOptions) {
+    _id
+    roomText
+    roomTitle
+    roomDesc
+    roomOptions
+    createdAt
   }
+}
 `;
