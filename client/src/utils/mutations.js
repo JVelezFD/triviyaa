@@ -17,13 +17,12 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_ROOM = gql`
-mutation addRoom($userId: ID!, $roomText: String!, $roomTitle: String!, $roomDesc: String!, $roomOptions: String!) {
-  addRoom(userId: $userId, roomText: $roomText, roomTitle: $roomTitle, roomDesc: $roomDesc, roomOptions: $roomOptions) {
+mutation AddRoom($userId: ID!, $roomCode: String!, $roomTitle: String!, $hostName: String!) {
+  addRoom(userId: $userId, roomCode: $roomCode, roomTitle: $roomTitle, hostName: $hostName) {
     _id
-    roomText
+    roomCode
     roomTitle
-    roomDesc
-    roomOptions
+    hostName
     createdAt
   }
 }
