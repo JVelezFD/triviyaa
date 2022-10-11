@@ -3,7 +3,7 @@ const dateFormat = require('../utils/dateFormat');
 
 
 const roomSchema = new Schema({
-  roomText: {
+  roomCode: { // was roomText
     type: String,
     minlength: 1,
     maxlength: 750,
@@ -13,11 +13,7 @@ const roomSchema = new Schema({
     type: String,
     allowNull: false
   },
-  roomDesc: {
-    type: String,
-    allowNull: false
-  },
-  roomOptions: {
+  hostName: { // was roomDesc
     type: String,
     allowNull: false
   },

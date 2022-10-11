@@ -7,17 +7,11 @@ import { QUERY_SINGLE_ROOM } from '../../utils/queries';
 const userId = "63458ad216a4e4e5d181a95a";
 
 const RoomForm = () => {
-  // const [formState, setFormState] = useState({
-  //   roomText: '',
-  //   roomTitle: '',
-  //   roomDesc: '',
-  //   roomOptions: ''
-  // });
-  const [roomText, setRoomText] = useState('');
+
+  // const [roomCode, setRoomCode] = useState('');
   const [roomTitle, setRoomTitle] = useState('');
-  const [roomDesc, setRoomDesc] = useState('');
-  const [roomOptions, setRoomOptions] = useState('');
-  const [characterCount, setCharacterCount] = useState(0);
+  const [hostName, setHostName] = useState('');
+  // const [characterCount, setCharacterCount] = useState(0);
 
   const [addRoom, { error }] = useMutation(ADD_ROOM, {
     update(cache, { data: { addRoom } }) {
@@ -36,29 +30,20 @@ const RoomForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    let roomCode = generateID('');
     try {
       const { data } = await addRoom({
-        // variables: { ...formState },
         variables: {
           userId,
-          roomText,
+          roomCode,
           roomTitle,
-          roomDesc,
-          roomOptions
+          hostName
         }
       });
 
-      // setFormState({
-      //   roomText: '',
-      //   roomTitle: '',
-      //   roomDesc: '',
-      //   roomOptions: ''
-      // });
-      setRoomText('');
+      // setRoomCode('');
       setRoomTitle('');
-      setRoomDesc('');
-      setRoomOptions('');
+      setHostName('');
 
     } catch (err) {
       console.error(err);
@@ -68,19 +53,22 @@ const RoomForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'roomText' && value.length <= 280) {
-      // setFormState({ ...formState, [name]: value });
-      setRoomText(value);
-      setCharacterCount(value.length);
-    } else if (name === 'roomTitle') {
+    if (name === 'roomTitle') {
       // setFormState({ ...formState, [name]: value });
       setRoomTitle(value);
-    } else if (name === 'roomDesc') {
-      setRoomDesc(value);
-    } else if (name === 'roomOptions') {
-      setRoomOptions(value);
+    } else if (name === 'hostName') {
+      setHostName(value);
     }
   };
+
+  async function generateID(code) {
+    let characterSelection = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let codeLength = code.length == 0 ? 6 : 1;
+    for (let i = 0; i < codeLength; i++) {
+        code += characterSelection.charAt(Math.floor(Math.random() * characterSelection.length))
+      }
+    return code;
+}
 
   return (
     <div>
@@ -88,7 +76,7 @@ const RoomForm = () => {
 
       <p
         className={`m-0 ${
-          characterCount === 280 || error ? 'text-danger' : ''
+          /*characterCount === 280 ||*/ error ? 'text-danger' : ''
         }`}
       >
         Create a room below
@@ -100,9 +88,9 @@ const RoomForm = () => {
       >
         <div className="col-12">
           <textarea
-            name="roomText"
+            name="roomTitle"
             placeholder="Name your Trivia Room"
-            value={roomText}
+            value={roomTitle}
             className="form-input w-100"
             style={{ lineHeight: '1.5' }}
             onChange={handleChange}
@@ -110,9 +98,9 @@ const RoomForm = () => {
         </div>
         <div className="col-12 col-lg-9">
           <input
-            name="roomTitle"
+            name="hostName"
             placeholder="Provide a Host Name"
-            value={roomTitle}
+            value={hostName}
             className="form-input w-100"
             onChange={handleChange}
           />
