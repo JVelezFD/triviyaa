@@ -67,13 +67,12 @@ const resolvers = {
     },
 
 
-    addRoom: async (parent, { userId, roomText, roomTitle, roomDesc, roomOptions, }, context) => {
+    addRoom: async (parent, { userId, roomCode, roomTitle, hostName }, context) => {
       // if (context.user) {
       const room = await Room.create({
-        roomText,
+        roomCode,
         roomTitle,
-        roomDesc,
-        roomOptions,
+        hostName,
       });
       console.log(room);
       await User.findOneAndUpdate(

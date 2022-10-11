@@ -13,10 +13,9 @@ const typeDefs = gql`
 
  type Room {
     _id: ID
-    roomText: String
+    roomCode: String
     roomTitle: String
-    roomDesc: String
-    roomOptions: String
+    hostName: String
     createdAt: String
     questions: [Question]!
     answers: [Answer]!
@@ -53,7 +52,7 @@ const typeDefs = gql`
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addQuestion(roomId: String!, questionText: String!): Question
-    addRoom(userId: ID!, roomText: String!, roomTitle: String!, roomDesc: String!, roomOptions: String!): Room
+    addRoom(userId: ID!, roomCode: String!, roomTitle: String!, hostName: String!): Room
     addAnswer(questionId: ID!, answerText: String!): Answer
     removeQuestion( roomId: ID! , questionId: ID!): Question
     removeAnswer(questionId: ID!, answerId: ID!): Answer
