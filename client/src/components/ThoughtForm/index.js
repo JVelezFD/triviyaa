@@ -4,6 +4,8 @@ import { useMutation } from '@apollo/client';
 import { ADD_ROOM } from '../../utils/mutations';
 import { QUERY_SINGLE_ROOM } from '../../utils/queries';
 
+const userId = "63458ad216a4e4e5d181a95a";
+
 const RoomForm = () => {
   // const [formState, setFormState] = useState({
   //   roomText: '',
@@ -39,6 +41,7 @@ const RoomForm = () => {
       const { data } = await addRoom({
         // variables: { ...formState },
         variables: {
+          userId,
           roomText,
           roomTitle,
           roomDesc,
