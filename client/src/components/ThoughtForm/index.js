@@ -5,12 +5,16 @@ import { ADD_ROOM } from '../../utils/mutations';
 import { QUERY_SINGLE_ROOM } from '../../utils/queries';
 
 const RoomForm = () => {
-  const [formState, setFormState] = useState({
-    roomText: '',
-    roomTitle: '',
-    roomDesc: '',
-    roomOptions: ''
-  });
+  // const [formState, setFormState] = useState({
+  //   roomText: '',
+  //   roomTitle: '',
+  //   roomDesc: '',
+  //   roomOptions: ''
+  // });
+  const [roomText, setRoomText] = useState('');
+  const [roomTitle, setRoomTitle] = useState('');
+  const [roomDesc, setRoomDesc] = useState('');
+  const [roomOptions, setRoomOptions] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addRoom, { error }] = useMutation(ADD_ROOM, {
@@ -33,15 +37,26 @@ const RoomForm = () => {
 
     try {
       const { data } = await addRoom({
-        variables: { ...formState },
+        // variables: { ...formState },
+        variables: {
+          roomText,
+          roomTitle,
+          roomDesc,
+          roomOptions
+        }
       });
 
-      setFormState({
-        roomText: '',
-        roomTitle: '',
-        roomDesc: '',
-        roomOptions: ''
-      });
+      // setFormState({
+      //   roomText: '',
+      //   roomTitle: '',
+      //   roomDesc: '',
+      //   roomOptions: ''
+      // });
+      setRoomText('');
+      setRoomTitle('');
+      setRoomDesc('');
+      setRoomOptions('');
+
     } catch (err) {
       console.error(err);
     }
@@ -51,10 +66,16 @@ const RoomForm = () => {
     const { name, value } = event.target;
 
     if (name === 'roomText' && value.length <= 280) {
-      setFormState({ ...formState, [name]: value });
+      // setFormState({ ...formState, [name]: value });
+      setRoomText(value);
       setCharacterCount(value.length);
-    } else if (name !== 'roomText') {
-      setFormState({ ...formState, [name]: value });
+    } else if (name === 'roomTitle') {
+      // setFormState({ ...formState, [name]: value });
+      setRoomTitle(value);
+    } else if (name === 'roomDesc') {
+      setRoomDesc(value);
+    } else if (name === 'roomOptions') {
+      setRoomOptions(value);
     }
   };
 
@@ -78,7 +99,7 @@ const RoomForm = () => {
           <textarea
             name="roomText"
             placeholder="Name your Trivia Room"
-            value={formState.roomText}
+            value={roomText}
             className="form-input w-100"
             style={{ lineHeight: '1.5' }}
             onChange={handleChange}
@@ -88,7 +109,7 @@ const RoomForm = () => {
           <input
             name="roomTitle"
             placeholder="Provide a Host Name"
-            value={formState.roomTitle}
+            value={roomTitle}
             className="form-input w-100"
             onChange={handleChange}
           />
