@@ -9,6 +9,12 @@ const questionSchema = new Schema({
     maxlength: 750,
     trim: true,
   },
+  correctAnswerText: {
+    type: String,
+    minlength: 0,
+    maxlength: 750,
+    trim: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

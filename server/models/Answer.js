@@ -10,6 +10,13 @@ const answerSchema = new Schema({
     trim: true,
     allowNull: true,
   },
+  playerId: {
+    type: String,
+    minlength: 0,
+    maxlength: 750,
+    trim: true,
+    allowNull: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
