@@ -26,5 +26,5 @@ export const QUERY_SINGLE_ROOM = gql`
     }
   }
 }
-
 `;
+

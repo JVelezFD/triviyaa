@@ -27,3 +27,23 @@ mutation AddRoom($userId: ID!, $roomCode: String!, $roomTitle: String!, $hostNam
   }
 }
 `;
+
+export const ADD_QUESTION = gql`
+mutation AddQuestion($roomId: String!, $questionText: String!, $correctAnswerText: String!) {
+  addQuestion(roomId: $roomId, questionText: $questionText, correctAnswerText: $correctAnswerText) {
+    _id
+    questionText
+    correctAnswerText
+  }
+}
+`;
+
+export const ADD_ANSWER = gql`
+mutation AddAnswer($questionId: ID!, $answerText: String!, $playerId: String!) {
+  addAnswer(questionId: $questionId, answerText: $answerText, playerId: $playerId) {
+    _id
+    answerText
+    playerId
+  }
+}
+`;

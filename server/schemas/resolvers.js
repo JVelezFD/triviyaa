@@ -90,10 +90,11 @@ const resolvers = {
 
     },
 
-    addQuestion: async (parent, { roomId, questionText }, context) => {
+    addQuestion: async (parent, { roomId, questionText, correctAnswerText }, context) => {
       // if (context.user) {
         const question = await Question.create({
           questionText,
+          correctAnswerText,
           });
         
       await Room.findOneAndUpdate(
@@ -108,10 +109,10 @@ const resolvers = {
       // throw new AuthenticationError('You need to be logged in!');
     },
 
-    addAnswer: async (parent, { questionId, answerText }, context) => {
+    addAnswer: async (parent, { questionId, answerText, playerId }, context) => {
       // if (context.user) {
       const answer = await Answer.create({
-          answerText,
+          answerText, playerId,
           });
         await Question.findOneAndUpdate(
           { _id: questionId },
