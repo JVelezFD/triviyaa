@@ -3,7 +3,12 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
+
+import SingleThought from './pages/SingleThought';
+import Room from './pages/Room';
+
 import QR from './pages/QR';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -28,6 +33,10 @@ function App() {
               <Route 
                 path="/QR" 
                 element={<QR />}
+              />
+              <Route 
+                path="/room/:roomCode" 
+                element={<Room />}
               />
             </Routes>
           </div>

@@ -13,8 +13,8 @@ export const QUERY_ROOMS = gql`
 `;
 
 export const QUERY_SINGLE_ROOM = gql`
-  query Room($roomId: ID!) {
-  room(roomId: $roomId) {
+  query Room($roomCode: String!) {
+  room(roomCode: $roomCode) {
     _id
     roomCode
     roomTitle
