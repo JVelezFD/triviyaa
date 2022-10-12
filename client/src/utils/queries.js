@@ -4,10 +4,9 @@ export const QUERY_ROOMS = gql`
   query Rooms{
   rooms {
     _id
-    roomText
+    roomCode
     roomTitle
-    roomDesc
-    roomOptions
+    hostName
     createdAt
   }
 }
@@ -17,10 +16,9 @@ export const QUERY_SINGLE_ROOM = gql`
   query Room($roomId: ID!) {
   room(roomId: $roomId) {
     _id
-    roomText
+    roomCode
     roomTitle
-    roomDesc
-    roomOptions
+    hostName
     createdAt
     questions {
       _id
