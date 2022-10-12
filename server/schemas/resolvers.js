@@ -18,8 +18,8 @@ const resolvers = {
       console.log(params);
       return Room.find(params).populate('questions').sort({ createdAt: -1 });
     },
-    room: async (parent, { roomId }) => {
-      return Room.findOne({ _id: roomId }).populate('questions');
+    room: async (parent, { roomCode }) => {
+      return Room.findOne({ roomCode: roomCode }).populate('questions');
     },
 
     questions: async (parent, { name }) => {

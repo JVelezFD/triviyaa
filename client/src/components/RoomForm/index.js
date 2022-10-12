@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { ADD_ROOM } from '../../utils/mutations';
@@ -7,11 +8,10 @@ import { QUERY_SINGLE_ROOM } from '../../utils/queries';
 const userId = "63458ad216a4e4e5d181a95a";
 
 const RoomForm = () => {
+  const navigate = useNavigate();
 
-  // const [roomCode, setRoomCode] = useState('');
   const [roomTitle, setRoomTitle] = useState('');
   const [hostName, setHostName] = useState('');
-  // const [characterCount, setCharacterCount] = useState(0);
 
   const [addRoom, { error }] = useMutation(ADD_ROOM, {
     update(cache, { data: { addRoom } }) {
@@ -44,7 +44,7 @@ const RoomForm = () => {
       // setRoomCode('');
       setRoomTitle('');
       setHostName('');
-
+      navigate(`/room/${roomCode}`);
     } catch (err) {
       console.error(err);
     }
@@ -63,7 +63,7 @@ const RoomForm = () => {
 
   async function generateID(code) {
     let characterSelection = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let codeLength = code.length == 0 ? 6 : 1;
+    let codeLength = code.length === 0 ? 6 : 1;
     for (let i = 0; i < codeLength; i++) {
         code += characterSelection.charAt(Math.floor(Math.random() * characterSelection.length))
       }
