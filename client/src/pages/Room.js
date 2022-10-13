@@ -8,7 +8,7 @@ import { QUERY_SINGLE_ROOM } from '../utils/queries';
 
 const Room = () => {
   const { roomCode } = useParams();
-  const [questionCount, setQuestionCount] = useState(1);
+//   const [questionCount, setQuestionCount] = useState(1);
   const { loading, data } = useQuery(QUERY_SINGLE_ROOM, {
     variables: { roomCode: roomCode },
   });
@@ -16,9 +16,12 @@ const Room = () => {
   const room = data?.room || {};
 
   const addQuestionField = () => {
-    setQuestionCount(questionCount + 1);
+    
     let container = document.querySelector("#questions-container");
     if(container) {
+        // setQuestionCount(questionCount + 1); //Starts at 0 for some reason?
+        let questionCount = document.getElementsByClassName("question-row").length;
+
         let newDiv = document.createElement("div");
         let newCol1 = document.createElement("div");
         let newCol2 = document.createElement("div");
@@ -26,7 +29,7 @@ const Room = () => {
         let newTextArea = document.createElement("textarea");
         let newInput = document.createElement("input");
 
-        newDiv.setAttribute('class', 'row p-2');
+        newDiv.setAttribute('class', 'row p-2 question-row');
         newCol1.setAttribute('class', 'col-6 col-md text-center');
         newCol2.setAttribute('class', 'col-6 col-md text-center');
 
@@ -63,12 +66,12 @@ const Room = () => {
                     <a href="#add" onClick={() => addQuestionField()}>Add a question</a>
                 </div>
             </div>
-            <div className="row p-2">
+            <div className="row p-2 question-row">
                 <div className="col-6 col-md text-center">
-                    <textarea className="form-control" name="question1" placeholder="Question"></textarea>
+                    <textarea className="form-control" name="question0" placeholder="Question"></textarea>
                 </div>
                 <div className="col-6 col-md text-center">
-                    <input className="form-control" name="answer1" placeholder="Answer"/>
+                    <input className="form-control" name="answer0" placeholder="Answer"/>
                 </div>
             </div>
         </div>
