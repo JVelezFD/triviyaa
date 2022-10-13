@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // Import the `useParams()` hook from React Router
 import { useParams } from 'react-router-dom';
@@ -8,12 +8,43 @@ import { QUERY_SINGLE_ROOM } from '../utils/queries';
 
 const Room = () => {
   const { roomCode } = useParams();
-
+  const [questionCount, setQuestionCount] = useState(1);
   const { loading, data } = useQuery(QUERY_SINGLE_ROOM, {
     variables: { roomCode: roomCode },
   });
 
   const room = data?.room || {};
+
+  const addQuestionField = () => {
+    setQuestionCount(questionCount + 1);
+    let container = document.querySelector("#questions-container");
+    if(container) {
+        let newDiv = document.createElement("div");
+        let newCol1 = document.createElement("div");
+        let newCol2 = document.createElement("div");
+
+        let newTextArea = document.createElement("textarea");
+        let newInput = document.createElement("input");
+
+        newDiv.setAttribute('class', 'row p-2');
+        newCol1.setAttribute('class', 'col-6 col-md text-center');
+        newCol2.setAttribute('class', 'col-6 col-md text-center');
+
+        newTextArea.setAttribute('class', 'form-control');
+        newTextArea.setAttribute('name', `question${questionCount}`);
+        newTextArea.setAttribute('placeholder', 'Question');
+
+        newInput.setAttribute('class', 'form-control');
+        newInput.setAttribute('name', `answer${questionCount}`);
+        newInput.setAttribute('placeholder', 'Answer');
+
+        newCol1.appendChild(newTextArea);
+        newCol2.appendChild(newInput);
+        newDiv.appendChild(newCol1);
+        newDiv.appendChild(newCol2);
+        container.appendChild(newDiv);
+    }
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -21,23 +52,25 @@ const Room = () => {
   return (
     <div className="my-3">
         <h3 className="card-header bg-dark text-light p-2 m-0">
-        {room.hostName} <br />
+        {room.roomTitle} <br />
         <span style={{ fontSize: '1rem' }}>
-            made this room on {room.createdAt}
+            {room.hostName} made this room on {room.createdAt}
         </span>
         </h3>
-        <div className="bg-light py-4">
-            <blockquote
-                className="p-4"
-                style={{
-                fontSize: '1.5rem',
-                fontStyle: 'italic',
-                border: '2px dotted #1a1a1a',
-                lineHeight: '1.5',
-                }}
-            >
-                {room.roomTitle}
-            </blockquote>
+        <div id="questions-container" className="bg-light py-4 container">
+            <div className='row p-2'>
+                <div className="col-6 col-md text-center">
+                    <a href="#add" onClick={() => addQuestionField()}>Add a question</a>
+                </div>
+            </div>
+            <div className="row p-2">
+                <div className="col-6 col-md text-center">
+                    <textarea className="form-control" name="question1" placeholder="Question"></textarea>
+                </div>
+                <div className="col-6 col-md text-center">
+                    <input className="form-control" name="answer1" placeholder="Answer"/>
+                </div>
+            </div>
         </div>
     </div>
   );
