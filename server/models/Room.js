@@ -3,9 +3,8 @@ const dateFormat = require('../utils/dateFormat');
 
 
 const roomSchema = new Schema({
-  roomText: {
+  roomCode: { // was roomText
     type: String,
-    required: 'Question Needs to be created',
     minlength: 1,
     maxlength: 750,
     trim: true,
@@ -14,11 +13,7 @@ const roomSchema = new Schema({
     type: String,
     allowNull: false
   },
-  roomDesc: {
-    type: String,
-    allowNull: false
-  },
-  roomOptions: {
+  hostName: { // was roomDesc
     type: String,
     allowNull: false
   },
@@ -35,7 +30,14 @@ const roomSchema = new Schema({
     },
   ],
      
-});
+},
+{
+  toJSON: {
+    virtuals: true,
+    getters: true
+  }},
+
+);
 
 
 

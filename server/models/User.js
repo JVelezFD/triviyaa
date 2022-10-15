@@ -19,13 +19,21 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  
   rooms: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Room'
     },
-  ],
-});
+  ], 
+
+},
+{
+toJSON: {
+  virtuals: true,
+  getters: true
+}},
+);
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function (next) {
