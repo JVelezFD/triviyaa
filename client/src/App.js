@@ -8,6 +8,8 @@ import Room from './pages/Room';
 
 import QR from './pages/QR';
 
+import Landing from './pages/Landing.js';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -36,6 +38,10 @@ function App() {
               <Route 
                 path="/room/:roomCode" 
                 element={<Room />}
+              />
+              <Route 
+                path="/Landing" 
+                element={<Landing />}
               />
             </Routes>
           </div>
