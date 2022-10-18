@@ -5,7 +5,7 @@ import quickplay from '../ourpics/QuickPlayPic.png';
 import jesus from '../ourpics/JesusPic.png';
 import connor from '../ourpics/ConnorPic.png';
 import jared from '../ourpics/JaredPic.png';
-import richard from '../ourpics/RichardPic.png';
+import richard from '../ourpics/RichardPic1.png';
 import adam from '../ourpics/AdamPic.png';
 
  // Tell Webpack this JS file uses this image
@@ -27,8 +27,8 @@ function About() {
             <img className="col-sm-6 mx-auto d-block" src={ jesus } alt="Jesus Velez"></img>
             <ul>
               <li>Name: Jesus Velez</li>
-              <li>Age: XXX</li>
-              <li>Hobbies: XXX</li>
+              <li>Age: 26</li>
+              <li>Hobbies: Martial Arts, Gaming</li>
             </ul>
           </div>
 
@@ -36,8 +36,8 @@ function About() {
             <img className="col-sm-6 mx-auto d-block" src={ connor } alt="Connor Breslin"></img>
             <ul>
               <li>Name: Connor Breslin</li>
-              <li>Age: XXX</li>
-              <li>Hobbies: XXX</li>
+              <li>Age: 24</li>
+              <li>Hobbies: LOL and Wrestling Gators</li>
             </ul>
           </div>
 
@@ -49,8 +49,8 @@ function About() {
             <img className="col-sm-6 mx-auto d-block" src={ jared } alt="Jared Daniel"></img>
             <ul>
               <li>Name: Jared Daniel</li>
-              <li>Age: XXX</li>
-              <li>Hobbies: XXX</li>
+              <li>Age: 27</li>
+              <li>Hobbies: Coding</li>
             </ul>
           </div>
 
@@ -58,8 +58,8 @@ function About() {
             <img className="col-sm-6 mx-auto d-block" src={ richard } alt="Richard Tran"></img>
             <ul>
               <li>Name: Richard Tran</li>
-              <li>Age: XXX</li>
-              <li>Hobbies: XXX</li>
+              <li>Age: 32</li>
+              <li>Hobbies: Disc Golf</li>
             </ul>
           </div>
         

@@ -16,10 +16,6 @@ import About from './pages/About.js';
 
 import HowTo from './pages/HowTo.js';
 
-import Header from './components/Header';
-
-import Footer from './components/Footer';
-
 const client = new ApolloClient({
   uri: '/graphql',
   cache: new InMemoryCache(),
@@ -52,6 +48,14 @@ function App() {
               <Route
                 exact path="/qr"
                 component={QR }
+              />
+              <Route
+                exact path="/howto"
+                component={HowTo }
+              />
+              <Route
+                exact path="/about"
+                component={About }
               />
               <Route
                 path="/room/:roomCode"
