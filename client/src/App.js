@@ -1,14 +1,16 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Home from './pages/Home';
+import { useAuth0 } from "@auth0/auth0-react";
+import Loading from "./components/Loading";
+import ProtectedRoute from "./auth/protected-route";
 
-import Room from './pages/Room';
+import { Room, QR, CreateRoom, Landing, Profile } from "./pages";
 
-import QR from './pages/QR';
+import { Header } from './components';
 
-import Landing from './pages/Landing.js';
+// import CreateRoom from './pages/CreateRoom';
 
 import About from './pages/About.js';
 
@@ -24,45 +26,47 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
           <Header />
           <div className="container">
-            <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
+            <Switch>
+
+              <Route
+                exact path="/"
+                component={ Landing }
+              />
+              <Route
+                path="/landing"
+                element={< Landing />}
               />
               {/* Create a route to display a single thought's comments based on its `thoughtId` provided in the URL */}
-              <Route 
-                path="/QR" 
-                element={<QR />}
+              <Route
+                exact path="/qr"
+                component={QR }
               />
-              <Route 
-                path="/room/:roomCode" 
-                element={<Room />}
+              <Route
+                path="/room/:roomCode"
+                component={Room }
               />
-              <Route 
-                path="/Landing" 
-                element={<Landing />}
+              <ProtectedRoute
+                path="/createroom"
+                component={CreateRoom }
               />
-              <Route 
-                path="/About" 
-                element={<About />}
-              />
-              <Route 
-                path="/HowTo" 
-                element={<HowTo />}
-              />
-            </Routes>
+            </Switch>
           </div>
-          <Footer />
         </div>
       </Router>
     </ApolloProvider>
   );
-}
+};
 
 export default App;

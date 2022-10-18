@@ -1,14 +1,42 @@
 import React from 'react';
+import { useState } from "react";
 import { useQuery } from '@apollo/client';
+import { useAuth0 } from "@auth0/auth0-react";
 
-import ThoughtList from '../components/ThoughtList';
 import RoomForm from '../components/RoomForm';
 
 import { QUERY_ROOMS } from '../utils/queries';
 
-const Home = () => {
+ const CreateRoom = () => {
+ const [message, setMessage] = useState("");
+ const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+const { getAccessTokenSilently } = useAuth0();
+
+const callSecureApi = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      const response = await fetch(
+        `${serverUrl}/createroom`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+     );
+
+      const responseData = await response.json();
+
+      setMessage(responseData.message);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+ 
   const { loading, data } = useQuery(QUERY_ROOMS);
   const rooms = data?.rooms || [];
+ 
 
   return (
     <main>
@@ -34,4 +62,5 @@ const Home = () => {
   );
 };
 
-export default Home;
+
+export default CreateRoom;

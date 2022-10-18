@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 // Import the `useParams()` hook from React Router
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_ROOM, ADD_QUESTION } from '../utils/mutations';
 import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM } from '../utils/queries';
 
 const Room = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const { roomCode } = useParams();
   // const [roomId, setRoomId] = useState();
@@ -100,17 +100,19 @@ const Room = () => {
           hasStarted: true
         }
       });
+      //console.log(roomData);
       for (let i = 0; i < questions.length; i++) {
-        const { questionData } = await addQuestion({
+        const { questionData } = await addQuestion(
+          {
           variables: {
             roomId: data.room._id,
             questionText: questions[i].value,
             correctAnswerText: answers[i].value
           }
-        });
+        }) ;
       }
-      
-      navigate(`/room/${roomCode}`);
+    
+      history.push(`/room/${roomCode}`);
     } catch (err) {
       console.error(err);
     }

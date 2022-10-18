@@ -1,10 +1,13 @@
+const express = require("express");
 const jwt = require('jsonwebtoken');
+const { checkJwt } = require("../authz/check-jwt");
 
 const secret = process.env.JWT_TOKEN;
 const expiration = '2h';
 
 module.exports = {
-  authMiddleware: function ({ req }) {
+  authMiddleware: 
+  function ({ req }) {
     let token = req.body.token || req.query.token || req.headers.authorization;
 
     if (req.headers.authorization) {
