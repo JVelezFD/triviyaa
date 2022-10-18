@@ -29,8 +29,8 @@ mutation AddRoom($userId: ID!, $roomCode: String!, $roomTitle: String!, $hostNam
 `;
 
 export const UPDATE_ROOM = gql`
-mutation UpdateRoom($updateRoomId: ID!, $hasStarted: Boolean!) {
-  updateRoom(id: $updateRoomId, hasStarted: $hasStarted) {
+mutation UpdateRoom($_id: ID!, $hasStarted: Boolean!) {
+  updateRoom(_id: $_id, hasStarted: $hasStarted) {
     _id
     roomCode
     roomTitle
