@@ -19,6 +19,7 @@ export const QUERY_SINGLE_ROOM = gql`
     roomCode
     roomTitle
     hostName
+    hasStarted
     createdAt
     questions {
       _id

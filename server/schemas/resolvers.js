@@ -90,12 +90,14 @@ const resolvers = {
 
     },
 
-    updateRoom: async(parent, {id, hasStarted}) => {
-      return await Room.findOneAndUpdate(
-        { _id: id },
-        { hasStarted: hasStarted},
+    updateRoom: async(parent, {_id, hasStarted}) => {
+      const room = await Room.findOneAndUpdate(
+        { _id: _id },
+        { $set: {hasStarted: true}},
         { new: true }
       );
+      console.log(room);
+      return room;
     },
 
     addQuestion: async (parent, { roomId, questionText, correctAnswerText }, context) => {
