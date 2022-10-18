@@ -13,9 +13,9 @@ import { Header } from './components';
 // import CreateRoom from './pages/CreateRoom';
 
 
-// import About from './pages/About.js';
+import About from './pages/About.js';
 
-// import HowTo from './pages/HowTo.js';
+import HowTo from './pages/HowTo.js';
 
 
 const client = new ApolloClient({
