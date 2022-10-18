@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useHistory} from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { ADD_ROOM } from '../../utils/mutations';
@@ -8,8 +8,8 @@ import { QUERY_SINGLE_ROOM } from '../../utils/queries';
 const userId = "63458ad216a4e4e5d181a95a";
 
 const RoomForm = () => {
-  const navigate = useNavigate();
-
+ // const navigate = useNavigate();
+const history = useHistory();
   const [roomTitle, setRoomTitle] = useState('');
   const [hostName, setHostName] = useState('');
 
@@ -44,7 +44,7 @@ const RoomForm = () => {
       // setRoomCode('');
       setRoomTitle('');
       setHostName('');
-      navigate(`/room/${roomCode}`);
+      history.push(`/room/${roomCode}`);
     } catch (err) {
       console.error(err);
     }

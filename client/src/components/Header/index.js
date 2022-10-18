@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AuthNav from '../AuthNav';
+
 
 const Header = () => {
   return (
@@ -9,6 +11,17 @@ const Header = () => {
           <h1 className="m-0">TriviYAA</h1>
         </Link>
         <p className="m-0">A Trivia Hosting APP for ALL</p>
+      </div>
+      <div>
+      <AuthNav />
+      <Link
+          to="/profile" 
+          exact
+      className="nav-link"
+      activeClassName="router-link-exact-active"
+    >
+      Profile
+      </Link>
       </div>
     </header>
   );

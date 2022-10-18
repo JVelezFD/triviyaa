@@ -5,6 +5,8 @@ const { authMiddleware } = require('./utils/auth');
 require("dotenv").config();
 const cors = require('cors');
 const bodyParser = require('body-parser'); 
+const helmet = require("helmet");
+const { clientOrigins, serverPort } = require("./config/env.dev");
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -19,7 +21,8 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-app.use('*', cors());
+app.use('*', cors({ origin: clientOrigins }));
+app.use(helmet());
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -38,8 +41,9 @@ const startApolloServer = async (typeDefs, resolvers) => {
   server.applyMiddleware({ app });
   
   db.once('open', () => {
-    app.listen(PORT, () => {
+    app.listen(PORT, serverPort, () => {
       console.log("MongoDB database connection established.")
+      console.log(`${serverPort}`)
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
     })
