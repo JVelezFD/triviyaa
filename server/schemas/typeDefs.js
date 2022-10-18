@@ -42,7 +42,7 @@ const typeDefs = gql`
   }
   type Query {
     questions: [Question]!
-    question(quesitonId: ID!): Question
+    question(questionId: ID!): Question
     answers: [Answer]!
     answer(answerId: ID!): Answer
     users: [User]!
@@ -56,6 +56,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addQuestion(roomId: String!, questionText: String! correctAnswerText: String!): Question
     addRoom(userId: ID!, roomCode: String!, roomTitle: String!, hostName: String!): Room
+    updateRoom(id: ID!, hasStarted: Boolean!): Room
     addAnswer(questionId: ID!, answerText: String! playerId: String!): Answer
     removeQuestion( roomId: ID! , questionId: ID!): Question
     removeAnswer(questionId: ID!, answerId: ID!): Answer

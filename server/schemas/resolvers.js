@@ -90,6 +90,14 @@ const resolvers = {
 
     },
 
+    updateRoom: async(parent, {id, hasStarted}) => {
+      return await Room.findOneAndUpdate(
+        { _id: id },
+        { hasStarted: hasStarted},
+        { new: true }
+      );
+    },
+
     addQuestion: async (parent, { roomId, questionText, correctAnswerText }, context) => {
       // if (context.user) {
         const question = await Question.create({

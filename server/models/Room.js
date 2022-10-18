@@ -17,6 +17,10 @@ const roomSchema = new Schema({
     type: String,
     allowNull: false
   },
+  hasStarted: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now,
