@@ -16,6 +16,7 @@ const typeDefs = gql`
     roomCode: String
     roomTitle: String
     hostName: String
+    hasStarted: Boolean
     createdAt: String
     questions: [Question]!
     answers: [Answer]!
@@ -24,7 +25,7 @@ const typeDefs = gql`
   type Question {
     _id: ID
     questionText: String
-    correctAnswerText: String
+    correctAnswerText: String,
     createdAt: String
     answers: [Answer]!
   }
@@ -56,6 +57,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addQuestion(roomId: String!, questionText: String! correctAnswerText: String!): Question
     addRoom(userId: ID!, roomCode: String!, roomTitle: String!, hostName: String!): Room
+    updateRoom(id: ID!, hasStarted: Boolean!): Room
     addAnswer(questionId: ID!, answerText: String! playerId: String!): Answer
     removeQuestion( roomId: ID! , questionId: ID!): Question
     removeAnswer(questionId: ID!, answerId: ID!): Answer

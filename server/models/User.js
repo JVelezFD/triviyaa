@@ -7,7 +7,7 @@ const userSchema = new Schema({
     required: false,
     unique: false,
     trim: true,
-    allowNull: true,
+    allowNull: true
   },
   email: {
     type: String,
