@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 // Import the `useParams()` hook from React Router
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_ROOM, ADD_QUESTION } from '../utils/mutations';
 import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM } from '../utils/queries';
 
 const Room = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const { roomCode } = useParams();
   const { roomId } = useParams();
@@ -61,7 +61,7 @@ const Room = () => {
 
         cache.writeQuery({
           query: QUERY_SINGLE_ROOM,
-          data: { rooms: [updateRoom, ...rooms] },
+          data: { rooms: [...rooms, updateRoom ] },
         });
       } catch (e) {
         console.error(e);
@@ -87,25 +87,27 @@ const Room = () => {
   const start = async () => {
     let questions = document.getElementsByClassName("form-question");
     let answers = document.getElementsByClassName("form-answer");
-
+console.log(room._id)
     try {
       const { roomData } = await updateRoom({
         variables: {
-          updateRoomId: roomId,
+          updateRoomId: room._id,
           hasStarted: true
         }
       });
+      //console.log(roomData);
       for (let i = 0; i < questions.length; i++) {
-        const { questionData } = await addQuestion({
+        const { questionData } = await addQuestion(
+          {
           variables: {
-            roomId: roomId,
+            roomId: room._Id,
             questionText: questions[i].value,
             correctAnswerText: answers[i].value
           }
-        });
+        }) ;
       }
-      
-      navigate(`/room/${roomCode}`);
+    
+      history.push(`/room/${roomCode}`);
     } catch (err) {
       console.error(err);
     }

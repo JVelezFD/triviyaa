@@ -22,7 +22,7 @@ const server = new ApolloServer({
 });
 
 app.use('*', cors({ origin: clientOrigins }));
-app.use(helmet());
+//app.use(helmet());
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -41,7 +41,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
   server.applyMiddleware({ app });
   
   db.once('open', () => {
-    app.listen(PORT, serverPort, () => {
+    app.listen(PORT, () => {
       console.log("MongoDB database connection established.")
       console.log(`${serverPort}`)
       console.log(`API server running on port ${PORT}!`);
