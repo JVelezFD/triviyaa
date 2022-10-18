@@ -12,6 +12,8 @@ import Landing from './pages/Landing.js';
 
 import About from './pages/About.js';
 
+import HowTo from './pages/HowTo.js';
+
 import Header from './components/Header';
 
 import Footer from './components/Footer';
@@ -49,6 +51,10 @@ function App() {
               <Route 
                 path="/About" 
                 element={<About />}
+              />
+              <Route 
+                path="/HowTo" 
+                element={<HowTo />}
               />
             </Routes>
           </div>
