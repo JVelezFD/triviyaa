@@ -28,3 +28,17 @@ export const QUERY_SINGLE_ROOM = gql`
 }
 `;
 
+export const QUERY_SINGLE_QUESTION = gql`
+query Question($questionId: ID!) {
+  question(questionId: $questionId) {
+    _id
+    questionText
+    correctAnswerText
+    answers {
+      _id
+      answerText
+      playerId
+    }
+  }
+}
+`;
