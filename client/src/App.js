@@ -12,13 +12,13 @@ import { Header } from './components';
 
 // import CreateRoom from './pages/CreateRoom';
 
-import About from './pages/About.js';
+//import About from './pages/About.js';
 
-import HowTo from './pages/HowTo.js';
+//import HowTo from './pages/HowTo.js';
 
-import Header from './components/Header';
+// import Header from './components/Header';
 
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
 
 const client = new ApolloClient({
   uri: '/graphql',
