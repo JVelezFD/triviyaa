@@ -8,7 +8,8 @@ import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM } from '../utils/queries';
 
 const Room = () => {
   const history = useHistory();
-
+  const [nickname, setNickname] = useState('');
+  const [nameSet, setNameSet] = useState(false);
   const { roomCode } = useParams();
   // const [roomId, setRoomId] = useState();
   // const [hasStarted, setHasStarted] = useState();
@@ -22,6 +23,24 @@ const Room = () => {
 
   const room = data?.room || {};
   // const hasStarted = data?.room.hasStarted || false;
+
+
+  const handleInputChange = (e) => {
+    // Getting the value and name of the input which triggered the change
+    const { target } = e;
+    const inputType = target.name;
+    const inputValue = target.value;
+
+    // Based on the input type, we set the state of either email, username, and password
+    if (inputType === 'nickname') {
+      setNickname(inputValue);
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    setNameSet(true);
+    history.push(`/room/${roomCode}`);
+  }
 
   const addQuestionField = () => {
     let container = document.querySelector("#questions-container");
@@ -151,9 +170,20 @@ const Room = () => {
           </div>
       </div>
     );
+  } else if (!nameSet){
+    return (
+      <div>
+        <form id="nickname">
+          <input type='nickname' name='nickname' placeholder='nickname' className='form-control' onChange={handleInputChange} />
+          <button className='btn btn-primary btn-lg btn-block' onClick={handleFormSubmit}>Submit</button>
+        </form>
+      </div>
+    );
   } else {
     return (
-      <div>Test!</div>
+      <div>
+        You are in the game, {nickname}!
+      </div>
     );
   }
   // Else if room not started ask player for nickname
