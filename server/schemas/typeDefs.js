@@ -16,6 +16,7 @@ const typeDefs = gql`
     roomCode: String
     roomTitle: String
     hostName: String
+    hasStarted: Boolean
     createdAt: String
     questions: [Question]!
     answers: [Answer]!
@@ -24,7 +25,7 @@ const typeDefs = gql`
   type Question {
     _id: ID
     questionText: String
-    correctAnswerText: String
+    correctAnswerText: String,
     createdAt: String
     answers: [Answer]!
   }

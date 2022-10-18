@@ -33,8 +33,9 @@ mutation UpdateRoom($updateRoomId: ID!, $hasStarted: Boolean!) {
   updateRoom(id: $updateRoomId, hasStarted: $hasStarted) {
     _id
     roomCode
-    hostName
     roomTitle
+    hostName
+    hasStarted
     createdAt
   }
 }
