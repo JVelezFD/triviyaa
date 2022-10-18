@@ -16,32 +16,32 @@ function Landing() {
     <div className="Landing">
       <h1 className= "text-primary">Welcome to Trivyaa : The biggest innovation in trivia since breweries became cool</h1>
       
-      <div class="container justify-content-center">
+      <div class="container d-flex justify-content-center">
         
-        <div class="row align-items-center justify-content-center">
+        <div class="row d-flex justify-content-center">
 
-          <div className="col-sm-6 align-items-center media">
-            <h2>Quick Play</h2>
-            <img className="col-sm-6" src={ quickplay } alt="Quick Play"></img>
+          <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
+            <a href = "http://localhost:3000/qr">Quick Play</a>
+            <img className="col-sm-6 mx-auto d-block" src={ quickplay } alt="Quick Play"></img>
           </div>
 
-          <div className="col-sm-6 align-items-center media">
-            <h2>Log-In</h2>
-            <img className="col-sm-6" src={ loginpic } alt="Log-In"></img>
+          <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
+            <a href = "http://localhost:3000/home">Log-In</a>
+            <img className="col-sm-6 mx-auto d-block" src={ loginpic } alt="Log-In"></img>
           </div>
 
         </div>
 
         <div class="row align-items-center justify-content-center">
           
-          <div className="col-sm-6 align-items-center media">
-            <h2>How to Play</h2>
-            <img className="col-sm-4" src={ howtoplay } alt="How to Play"></img>
+          <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
+            <a href = "http://localhost:3000/howto">How to Play</a>
+            <img className="col-sm-4 mx-auto d-block" src={ howtoplay } alt="How to Play"></img>
           </div>
 
-          <div className="col-sm-6 align-items-center media">
-            <h2>About Us</h2>
-            <img className="col-sm-6" src={ about } alt="About Us"></img>
+          <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
+            <a href = "http://localhost:3000/about">About Us</a>
+            <img className="col-sm-6 mx-auto d-block" src={ about } alt="About Us"></img>
           </div>
         
         </div>

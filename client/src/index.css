@@ -1706,3 +1706,39 @@ label form [type='radio'] {
     align-content: center;
   }
 }
+
+/* Hyperlink CSS */
+a:link {
+  font-family: monospace;
+  font-size: 30px;
+  color: orange;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  font-family: monospace;
+  color: purple;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  font-family: monospace;
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  font-family: monospace;
+  color: black;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+ul {
+  list-style-type: none;
+  font-family: monospace;
+  font-size: larger;
+}

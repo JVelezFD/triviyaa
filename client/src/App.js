@@ -12,14 +12,13 @@ import { Header } from './components';
 
 // import CreateRoom from './pages/CreateRoom';
 
-// import Room from './pages/Room';
+import About from './pages/About.js';
 
-// import QR from './pages/QR';
+import HowTo from './pages/HowTo.js';
 
-// import Landing from './pages/Landing.js';
+import Header from './components/Header';
 
-
-
+import Footer from './components/Footer';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -62,11 +61,6 @@ function App() {
                 path="/createroom"
                 component={CreateRoom }
               />
-              <ProtectedRoute
-                path="/profile"
-                component={Profile }
-              />
-
             </Switch>
           </div>
         </div>
