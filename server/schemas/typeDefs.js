@@ -42,7 +42,7 @@ const typeDefs = gql`
   }
   type Query {
     questions: [Question]!
-    question(quesitonId: ID!): Question
+    question(questionId: ID!): Question
     answers: [Answer]!
     answer(answerId: ID!): Answer
     users: [User]!
