@@ -10,7 +10,10 @@ import QR from './pages/QR';
 
 import Landing from './pages/Landing.js';
 
+import About from './pages/About.js';
+
 import Header from './components/Header';
+
 import Footer from './components/Footer';
 
 const client = new ApolloClient({
@@ -42,6 +45,10 @@ function App() {
               <Route 
                 path="/Landing" 
                 element={<Landing />}
+              />
+              <Route 
+                path="/About" 
+                element={<About />}
               />
             </Routes>
           </div>

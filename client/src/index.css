@@ -1736,3 +1736,9 @@ a:active {
   background-color: transparent;
   text-decoration: underline;
 }
+
+ul {
+  list-style-type: none;
+  font-family: monospace;
+  font-size: larger;
+}
