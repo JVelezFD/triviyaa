@@ -1,4 +1,6 @@
+
 //setting up frontend to communicate with 3rd party api to pull questions and categories
+
 
 import axios from "axios";
 
@@ -25,5 +27,6 @@ async function getQuestions(numOfQs, catId) {
     console.log(e);
   }
 }
+
 
 export { getCategories, getQuestions };
