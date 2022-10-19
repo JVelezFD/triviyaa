@@ -1,31 +1,56 @@
-const mongoose = require("mongoose")
-const { Schema } = mongoose
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
-  username: {
+  name: {
+    type: String,
+    required: false,
+    unique: false,
+    trim: true,
+    allowNull: true
+  },
+  email: {
     type: String,
     required: true,
-  },
-  room: {
-    type: String,
-    required: true,
-  },
-  score: Number,
-  round: Number,
-  socketId: String,
-  admin: Boolean,
-})
-
-userSchema.index(
-  {
-    username: 1,
-    room: 1,
-  },
-  {
     unique: true,
+    match: [/.+@.+\..+/, 'Must match an email address!'],
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
+  
+  rooms: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Room'
+    },
+  ], 
+
+},
+{
+toJSON: {
+  virtuals: true,
+  getters: true
+}},
+);
+
+// set up pre-save middleware to create password
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
-)
 
-const User = new mongoose.model("User", userSchema)
+  next();
+});
 
-module.exports = User
+// compare the incoming password with the hashed password
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
+const User = model('User', userSchema);
+
+module.exports = User;
