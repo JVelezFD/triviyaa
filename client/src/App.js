@@ -53,7 +53,7 @@ function App() {
                 exact path="/about"
                 component={About }
               />
-              <ProtectedRoute
+              <Route
                 path="/gameroom"
                 component={ GameRoom }
               />

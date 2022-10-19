@@ -14,12 +14,12 @@ const socketio = require("socket.io");
 const cors = require('cors');
 const bodyParser = require('body-parser'); 
 const helmet = require("helmet");
-const { clientOrigins, serverPort } = require("./config/env.dev");
+// const { clientOrigins, serverPort } = require("./config/env.dev");
 
-const { typeDefs, resolvers } = require('./schema');
+//const { typeDefs, resolvers } = require('./schema');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 const expressServer = app.listen(PORT, () =>
@@ -28,15 +28,15 @@ const expressServer = app.listen(PORT, () =>
 
 const uri = process.env.ATLAS_URL;
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: authMiddleware,
-});
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   context: authMiddleware,
+// });
 
 
 
-app.use('*', cors({ origin: clientOrigins }));
+app.use('*', cors());
 app.use(helmet());
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: false }));
@@ -47,7 +47,8 @@ const io = socketio(expressServer, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
-    allowedHeaders: ["content-type"]
+    allowedHeaders: ["content-type"],
+    
   }
 });
 
@@ -156,8 +157,7 @@ app.get('/', (req, res) => {
       console.log("MongoDB database connection established.")
       console.log(`${serverPort}`)
       console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-    })
+      })
   })
 
   
