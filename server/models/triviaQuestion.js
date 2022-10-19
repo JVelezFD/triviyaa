@@ -1,4 +1,4 @@
-const { FETCH_QUESTION, FETCH_TOKEN } = require("../api");
+const { FETCH_QUESTION, FETCH_TOKEN } = require("../api/index");
 
 class TriviaQuestion {
   constructor({

@@ -1,27 +1,25 @@
 import React from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+// import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+//Auth0 imports
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/Loading";
 import ProtectedRoute from "./auth/protected-route";
-
-import { Room, QR, CreateRoom, Landing, Profile } from "./pages";
-
+//Compnent imports
+import { GameRoom, Landing, About, HowTo } from "./pages";
 import { Header } from './components';
 
-// import CreateRoom from './pages/CreateRoom';
 
 
-import About from './pages/About.js';
-
-import HowTo from './pages/HowTo.js';
 
 
-const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache(),
-});
+
+
+// const client = new ApolloClient({
+//   uri: '/graphql',
+//   cache: new InMemoryCache(),
+// });
 
 function App() {
   const { isLoading } = useAuth0();
@@ -31,7 +29,7 @@ function App() {
   }
 
   return (
-    <ApolloProvider client={client}>
+    // <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
           <Header />
@@ -48,10 +46,6 @@ function App() {
               />
               {/* Create a route to display a single thought's comments based on its `thoughtId` provided in the URL */}
               <Route
-                exact path="/qr"
-                component={QR }
-              />
-              <Route
                 exact path="/howto"
                 component={HowTo }
               />
@@ -59,19 +53,15 @@ function App() {
                 exact path="/about"
                 component={About }
               />
-              <Route
-                path="/room/:roomCode"
-                component={Room }
-              />
               <ProtectedRoute
-                path="/createroom"
-                component={CreateRoom }
+                path="/gameroom"
+                component={ GameRoom }
               />
             </Switch>
           </div>
         </div>
       </Router>
-    </ApolloProvider>
+    // </ApolloProvider>
   );
 };
 
