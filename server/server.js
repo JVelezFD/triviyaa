@@ -1,5 +1,5 @@
-const Room = require("./models/room"); /** Room Class */
-const { FETCH_TOKEN } = require("./api/index");
+const Room = require("./models"); /** Room Class */
+const { FETCH_TOKEN } = require("./api");
 
 const express = require("express"); /** require express */
 const socketio = require("socket.io"); /** require socket io */
