@@ -1,20 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+//CSS imports
+import Container from "@material-ui/core/Container"
+import Button from "@material-ui/core/Button"
+import Grid from "@material-ui/core/Grid"
+import Alert from "@material-ui/lab/Alert"
+import { ThemeProvider } from "@material-ui/styles"
+import Fade from "@material-ui/core/Fade"
+import CustomTheme from './theme/CustomTheme';
 
+//Auth0 Imports
 import { useAuth0 } from "@auth0/auth0-react";
-import Loading from "./components/Loading";
+// import Loading from "./components/Loading";
 import ProtectedRoute from "./auth/protected-route";
 
+//Compnents/View imports
 import { Room, QR, Landing, } from "./pages";
 
 import { GameContainer, SignupButton, LoginButton, LogoutButton, Header, AuthNav, AuthButton,LoginUser, Loading, DisplayGameOver,DisplayUsers   } from './components';
-
 // import CreateRoom from './pages/CreateRoom';
-
-
 import About from './pages/About.js';
-
 import HowTo from './pages/HowTo.js';
 
 
@@ -74,49 +79,113 @@ function App({ socket }) {
     })
   }, [socket])
 
-  return (
-    
-      <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
-          <div className="container">
-            <Switch>
+//   <Route
+//   exact path="/"
+//   component={ Landing }
+// />
+// <Route
+//   path="/landing"
+//   element={< Landing />}
+// />
+// {/* Create a route to display a single thought's comments based on its `thoughtId` provided in the URL */}
+// <Route
+//   exact path="/qr"
+//   component={QR }
+// />
+// <Route
+//   exact path="/howto"
+//   component={HowTo }
+// />
+// <Route
+//   exact path="/about"
+//   component={About }
+// />
 
-              <Route
-                exact path="/"
-                component={ Landing }
-              />
-              <Route
-                path="/landing"
-                element={< Landing />}
-              />
-              {/* Create a route to display a single thought's comments based on its `thoughtId` provided in the URL */}
-              <Route
-                exact path="/qr"
-                component={QR }
-              />
-              <Route
-                exact path="/howto"
-                component={HowTo }
-              />
-              <Route
-                exact path="/about"
-                component={About }
-              />
-              <Route
-                path="/room/:roomCode"
-                component={Room }
-              />
-              <ProtectedRoute
-                path="/createroom"
-                component={CreateRoom }
-              />
-            </Switch>
-          </div>
+  return (
+<Router>   
+<ThemeProvider theme={CustomTheme}>
+      <Fade in={true} timeout={1000}>
+        <div className="content">
+          <Header user={user} room={room} />
+          <Container>
+            <Grid>
+              {error ? (
+                <Alert severity="error" style={{ width: "100%" }}>
+                  {error}
+                </Alert>
+              ) : null}
+              <div className="game-content">
+                {endOfGame ? <DisplayGameOver socket={socket} /> : null}
+
+                {!loggedIn ? (
+                  <LoginUser
+                    user={user}
+                    setUser={setUser}
+                    room={room}
+                    setRoom={setRoom}
+                    setLoggedIn={setLoggedIn}
+                    socket={socket}
+                    setError={setError}
+                    setAdmin={setAdmin}
+                  />
+                ) : null}
+
+                {(loggedIn && !gameStarted && admin) || (endOfGame && admin) ? (
+                  <Fade in={true} timeout={1000}>
+                    <div className="center-container">
+                      {/* <object
+                        type="image/svg+xml"
+                        data={StartSvg}
+                        style={{ width: "420px" }}
+                      >
+                        svg
+                      </object> */}
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="primary"
+                        onClick={handleStart}
+                        className="start-btn"
+                      >
+                        Start Game
+                      </Button>
+                    </div>
+                  </Fade>
+                ) : loggedIn &&
+                  !gameStarted &&
+                  !admin &&
+                  userObject.round < 2 ? (
+                  <Fade in={true} timeout={1000}>
+                    <div className="center-container">
+                      {/* <object
+                        type="image/svg+xml"
+                        data={WaitingSvg}
+                        style={{ width: "420px" }}
+                      >
+                        svg
+                      </object> */}
+                      <h3>waiting on admin to start game</h3>
+                    </div>
+                  </Fade>
+                ) : null}
+                {gameStarted ? (
+                  <GameContainer
+                    question={question}
+                    socket={socket}
+                    room={room}
+                    user={user}
+                    gameStarted={gameStarted}
+                  />
+                ) : null}
+              </div>
+            </Grid>
+            <DisplayUsers usersInGame={usersInGame} room={room} />
+          </Container>
         </div>
-      </Router>
-  
-  );
+      </Fade>
+    </ThemeProvider>
+  </Router>
+  )
 };
 
 export default App;
