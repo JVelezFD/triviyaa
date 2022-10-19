@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchGameId = createAsyncThunk("gameroom/game/fetchGameId", async id => {
+export const fetchGameId = createAsyncThunk("/game/fetchGameId", async id => {
   return id;
 });
 
