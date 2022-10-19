@@ -1,7 +1,8 @@
-const Question = require('./Question');
 const User = require('./User');
 const Room = require('./Room');
-const Answer = require('./Answer');
+const Player = require('./player');
+const TriviaQuestion = require('./triviaQuestion');
 
 
-module.exports = { Question, User, Room, Answer };
+
+module.exports = {  User, Room, TriviaQuestion, Player};
