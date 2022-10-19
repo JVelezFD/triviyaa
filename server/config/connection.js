@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  "mongodb+srv://triviyaa:YahooThe3estEmail@cluster0.ewe2sqe.mongodb.net/triviyaaDB?retryWrites=true&w=majority",
+  process.env.MONGODB_URL,
   // || 'mongodb://127.0.0.1:27017/triviyaa',
   {
     useNewUrlParser: true,
@@ -10,4 +10,6 @@ mongoose.connect(
   }
 );
 
-module.exports = mongoose.connection;
+const db= mongoose.connection;
+
+module.exports = db;

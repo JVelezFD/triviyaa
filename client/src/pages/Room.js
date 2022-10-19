@@ -4,20 +4,30 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_ROOM, ADD_QUESTION } from '../utils/mutations';
-import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM } from '../utils/queries';
+import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM, QUERY_SINGLE_USER } from '../utils/queries';
+import { useAuth0 } from '@auth0/auth0-react'
+
+
 
 const Room = () => {
+  const { user, isAuthenticated } = useAuth0();
+  const {email} = user; 
   const history = useHistory();
   const [nickname, setNickname] = useState('');
   const [nameSet, setNameSet] = useState(false);
   const { roomCode } = useParams();
-  // const [roomId, setRoomId] = useState();
-  // const [hasStarted, setHasStarted] = useState();
-//   const [questionCount, setQuestionCount] = useState(1);
+  const [roomId, setRoomId] = useState();
+  const [hasStarted, setHasStarted] = useState();
+  const [questionCount, setQuestionCount] = useState(1);
   const { loading, data } = useQuery(QUERY_SINGLE_ROOM, {
     variables: { roomCode: roomCode },
   });
-  
+  // Single User
+  // const [userInfo, {userError}] = useQuery(QUERY_SINGLE_USER,
+  //   {
+  //   variables: {email: email},
+  // }
+  //    );
 
   //TODO: Query single user based on current user's ID. Return rooms. Check room ids for match to roomId. If match, set new variable "userIsHost" to true
 
@@ -73,7 +83,7 @@ const Room = () => {
         newDiv.appendChild(newCol2);
         container.appendChild(newDiv);
     }
-  }
+  };
 
   // const [updateRoom, { updateRoomerror }] = useMutation(UPDATE_ROOM, {
   //   update(cache, { data: { updateRoom } }) {
@@ -89,6 +99,8 @@ const Room = () => {
   //     }
   //   },
   // });
+  
+
 
   const [updateRoom, { error }] = useMutation(UPDATE_ROOM);
 
@@ -170,7 +182,7 @@ const Room = () => {
           </div>
       </div>
     );
-  } else if (!nameSet){
+  } else if (!nameSet  ){
     return (
       <div>
         <form id="nickname">

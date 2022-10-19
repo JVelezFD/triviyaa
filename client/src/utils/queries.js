@@ -43,3 +43,20 @@ query Question($questionId: ID!) {
   }
 }
 `;
+
+export const QUERY_SINGLE_USER = gql`
+query User($email: email!) {
+  user(email: $email) {
+    _id
+    email
+    rooms {
+    _id
+    roomCode
+    roomTitle
+    hostName
+    createdAt
+  }
+   
+  }
+}
+`;
