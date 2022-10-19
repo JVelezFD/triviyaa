@@ -1,33 +1,18 @@
 import React, { useState } from 'react';
 import { useLocation, useHistory} from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useMutation } from '@apollo/client';
+
 import { ADD_ROOM } from '../../utils/mutations';
-import { QUERY_SINGLE_ROOM, QUERY_SINGLE_USER } from '../../utils/queries';
+import { QUERY_SINGLE_ROOM } from '../../utils/queries';
 
 const userId = "634e242a90f162b7053c1cd9";
-
-// const userData = () =>{
-// const { user, isAuthenticated } = useAuth0();
-// const {email} = user; 
-// //  Single User
-//  const [userInfo, {userError}] = useQuery(QUERY_SINGLE_USER,
-//     {
-//     variables: {email: email},
-//   }
-//      ); console.log(userInfo);
-// }
-
-
 
 const RoomForm = () => {
  // const navigate = useNavigate();
 const history = useHistory();
   const [roomTitle, setRoomTitle] = useState('');
   const [hostName, setHostName] = useState('');
- 
- 
- 
+
   const [addRoom, { error }] = useMutation(ADD_ROOM, {
     update(cache, { data: { addRoom } }) {
       try {
@@ -136,4 +121,4 @@ const history = useHistory();
   );
 };
 
-export default RoomForm ;
+export default RoomForm;

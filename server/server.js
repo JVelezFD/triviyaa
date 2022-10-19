@@ -1,100 +1,56 @@
-const express = require("express")
-const cors = require("cors")
-//Setup Socket IO requirements
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const path = require('path');
+const { authMiddleware } = require('./utils/auth');
+require("dotenv").config();
+const cors = require('cors');
+const bodyParser = require('body-parser'); 
+const helmet = require("helmet");
+const { clientOrigins, serverPort } = require("./config/env.dev");
 
-const http = require("http")
-const socketIo = require("socket.io")
-require("dotenv").config()
+const { typeDefs, resolvers } = require('./schemas');
+const db = require('./config/connection');
 
+const PORT = process.env.PORT || 3001;
+const app = express();
+const uri = process.env.ATLAS_URL;
 
-//Start Game
-const { startGame } = require("./game")
-const {
-  addUser,
-  removeUser,
-  getUsersInRoom,
-  updateUserScore,
-  getUser,
-} = require("./utils/users")
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+});
 
-const db = require("./config/connection")
+app.use('*', cors({ origin: clientOrigins }));
+//app.use(helmet());
+app.use(bodyParser.json()); 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-const app = express()
-app.use(cors())
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
-const port = process.env.PORT || 3001
-const indexRoute = require("./routes")
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
-app.use(indexRoute)
-
-//creates a Socket iO server for users
-const server = http.createServer(app)
-
-const io = socketIo(server)
-
-db.once("open", () => {
-  console.log("connected to mongoDB")
-})
-
-io.on("connection", (socket) => {
-  console.log("a user has joined")
-  socket.emit("welcomeMsg", "")
-
-  // USER REGISTRATION
-
-  socket.on("join", async (payload) => {
-    try {
-      const user = await addUser({
-        ...payload,
-        socketId: socket.id,
-      })
-      const usersInRoom = await getUsersInRoom(user.room)
-      socket.join(user.room)
-      socket.emit("message", `${user.username} welcome to ${user.room}`)
-      socket.emit("userInfo", user)
-
-      io.to(user.room).emit("roomData", {
-        room: user.room,
-        users: usersInRoom,
-      })
-
-      // Game Logistics
-
-      startGame(socket, io, user.room)
-    } catch (e) {
-      socket.emit("error", e)
-    }
+// Create a new instance of an Apollo server with the GraphQL schema
+const startApolloServer = async (typeDefs, resolvers) => {
+  await server.start();
+  server.applyMiddleware({ app });
+  
+  db.once('open', () => {
+    app.listen(PORT, () => {
+      console.log("MongoDB database connection established.")
+      console.log(`${serverPort}`)
+      console.log(`API server running on port ${PORT}!`);
+      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    })
   })
-
-  socket.on("userScore", async ({ user, room }) => {
-    // update user score
-    const updated = await updateUserScore(user, room)
-    const usersInRoom = await getUsersInRoom(room)
-
-    if (updated) {
-      io.to(room).emit("roomData", {
-        room: room,
-        users: usersInRoom,
-      })
-    }
-  })
-
-  socket.on("disconnect", async () => {
-    const user = await getUser(socket.id)
-    let room = user.room
-    const confirmDelete = await removeUser(socket.id)
-    const usersInRoom = await getUsersInRoom(room)
-
-    if (confirmDelete.deletedCount === 1) {
-      io.to(room).emit("message", `${user.username} has left`)
-      io.to(room).emit("roomData", {
-        room: room,
-        users: usersInRoom,
-      })
-    }
-  })
-})
-
-server.listen(port, () => {
-  console.log(`serving on ${port}`)
-})
+};
+  
+// Call the async function to start the server
+startApolloServer(typeDefs, resolvers);
+  
+//Test Commit
