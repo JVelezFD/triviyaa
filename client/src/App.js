@@ -3,9 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 //Auth0 imports
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/Loading";
-import ProtectedRoute from "./auth/protected-route";
+// import ProtectedRoute from "./auth/protected-route";
 //Compnent imports
 import { GameRoom, Landing, About, HowTo } from "./pages";
 import { Header } from './components';
@@ -22,11 +22,11 @@ import { Header } from './components';
 // });
 
 function App() {
-  const { isLoading } = useAuth0();
+  // const { isLoading } = useAuth0();
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     // <ApolloProvider client={client}>

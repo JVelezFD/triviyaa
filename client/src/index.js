@@ -7,19 +7,19 @@ import store from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
+// import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 import { BrowserRouter as Router } from "react-router-dom";
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0ProviderWithHistory>
+    {/* <Auth0ProviderWithHistory> */}
     <Provider store={store}>
         <Router>
           <App />
         </Router>
     </Provider>
-    </Auth0ProviderWithHistory>
+    {/* </Auth0ProviderWithHistory> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
