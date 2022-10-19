@@ -22,7 +22,7 @@ const server = new ApolloServer({
 });
 
 app.use('*', cors({ origin: clientOrigins }));
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

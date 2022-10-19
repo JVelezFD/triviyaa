@@ -8,6 +8,8 @@ import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM } from '../utils/queries';
 
 const Room = () => {
   const history = useHistory();
+  const [questions, setQuestions] =useState(['']);
+  const [answers, setAnswers] =useState(['']);
   const [nickname, setNickname] = useState('');
   const [nameSet, setNameSet] = useState(false);
   const { roomCode } = useParams();
@@ -106,7 +108,7 @@ const Room = () => {
       }
     },
   });
-
+  
   const start = async () => {
     let questions = document.getElementsByClassName("form-question");
     let answers = document.getElementsByClassName("form-answer");
@@ -119,7 +121,8 @@ const Room = () => {
           hasStarted: true
         }
       });
-      //console.log(roomData);
+      console.log("questions", questions, roomData);
+      
       for (let i = 0; i < questions.length; i++) {
         const { questionData } = await addQuestion(
           {
@@ -128,7 +131,7 @@ const Room = () => {
             questionText: questions[i].value,
             correctAnswerText: answers[i].value
           }
-        }) ; console.log();
+        }) ; 
       }
     
       history.push(`/room/${roomCode}`);
