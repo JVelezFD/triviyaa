@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/Loading";
 import ProtectedRoute from "./auth/protected-route";
 
-import { Room, QR, CreateRoom, Landing, Profile } from "./pages";
+import { Room, QR, CreateRoom, Landing, HowTo, About } from "./pages";
 
 import { Header } from './components';
 
@@ -48,6 +48,14 @@ function App() {
               <Route
                 exact path="/qr"
                 component={ QR }
+              />
+              <Route
+                exact path="/howto"
+                component={ HowTo }
+              />
+               <Route
+                exact path="/about"
+                component={About }
               />
               <Route
                 path="/room/:roomCode"

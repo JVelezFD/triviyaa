@@ -24,14 +24,15 @@ function HowTo() {
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
             <ul>
               <li>* QUICK JOIN A GAME *</li>
-              <li>Step 1</li>
-              <li>Step 2</li>
-              <li>Step 3</li>
+              --------------
+              <li>• Scan a QR code to jump directly into the action</li>
+              <li>• Answer the Question to the best of your ability</li>
+              <li>• See how you stacked up to everyone else in the room!</li>
             </ul>
           </div>
 
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
-            <img className="col-sm-6 mx-auto d-block" src={ register } alt="Register an Account"></img>
+            <img className="col-sm-6 mx-auto d-block" src={ quick } alt="Register an Account"></img>
           </div>
 
         </div>
@@ -41,14 +42,14 @@ function HowTo() {
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
             <ul>
               <li>* REGISTER A NEW ACCOUNT *</li>
-              <li>Step 1</li>
-              <li>Step 2</li>
-              <li>Step 3</li>
+              --------------
+              <li>Utilize the power of Single Sign On</li>
+              <li>Or simply register with and email and password</li>
             </ul>
           </div>
 
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
-            <img className="col-sm-6 mx-auto d-block" src={ create } alt="Create a Room"></img>
+            <img className="col-sm-6 mx-auto d-block" src={ register } alt="Create a Room"></img>
           </div>
 
         </div>
@@ -58,14 +59,16 @@ function HowTo() {
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
             <ul>
               <li>* CREATE A ROOM *</li>
-              <li>Step 1</li>
-              <li>Step 2</li>
-              <li>Step 3</li>
+              --------------
+              <li>• To create a room you must be a registered user</li>
+              <li>• Once logged in just click "create room"</li>
+              <li>• Fill our the questions and answers form</li>
+              <li>• Then share your room for anyone to join!</li>
             </ul>
           </div>
 
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
-            <img className="col-sm-6 mx-auto d-block" src={ quick } alt="Quick Join a Game"></img>
+            <img className="col-sm-6 mx-auto d-block" src={ create } alt="Quick Join a Game"></img>
           </div>
 
         </div>
