@@ -1,3 +1,7 @@
+
+//setting up frontend to communicate with 3rd party api to pull questions and categories
+
+
 import axios from "axios";
 
 const URL = "https://opentdb.com";
@@ -23,5 +27,6 @@ async function getQuestions(numOfQs, catId) {
     console.log(e);
   }
 }
+
 
 export { getCategories, getQuestions };
