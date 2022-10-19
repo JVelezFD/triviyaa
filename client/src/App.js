@@ -11,11 +11,6 @@ import { GameRoom, Landing, About, HowTo } from "./pages";
 import { Header } from './components';
 
 
-
-
-
-
-
 // const client = new ApolloClient({
 //   uri: '/graphql',
 //   cache: new InMemoryCache(),
