@@ -26,7 +26,7 @@ function Landing() {
           </div>
 
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
-            <a href = "http://localhost:3000/home">Log-In</a>
+            <a href = "http://localhost:3000/createroom">Create Room</a>
             <img className="col-sm-6 mx-auto d-block" src={ loginpic } alt="Log-In"></img>
           </div>
 

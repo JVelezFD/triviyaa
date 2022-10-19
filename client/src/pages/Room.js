@@ -128,7 +128,7 @@ const Room = () => {
             questionText: questions[i].value,
             correctAnswerText: answers[i].value
           }
-        }) ;
+        }) ; console.log();
       }
     
       history.push(`/room/${roomCode}`);

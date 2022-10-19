@@ -44,14 +44,10 @@ function App() {
                 exact path="/"
                 component={ Landing }
               />
-              <Route
-                path="/landing"
-                element={< Landing />}
-              />
               {/* Create a route to display a single thought's comments based on its `thoughtId` provided in the URL */}
               <Route
                 exact path="/qr"
-                component={QR }
+                component={ QR }
               />
               <Route
                 path="/room/:roomCode"
