@@ -14,7 +14,7 @@ function Landing() {
   
   return (
     <div className="Landing">
-      <h1 className= "text-primary">Welcome to Trivyaa : The biggest innovation in trivia since breweries became cool</h1>
+      <h1 className= "text-primary text-center"> Welcome to Trivyaa : {"\n"} The biggest innovation in trivia since breweries became cool</h1>
       
       <div class="container d-flex justify-content-center">
         
@@ -26,7 +26,7 @@ function Landing() {
           </div>
 
           <div className="col-sm-6 flex-column text-center p-2 justify-content-center">
-            <a href = "http://localhost:3000/home">Log-In</a>
+            <a href = "http://localhost:3000/CreateRoom">Create Room</a>
             <img className="col-sm-6 mx-auto d-block" src={ loginpic } alt="Log-In"></img>
           </div>
 

@@ -13,14 +13,9 @@ import { Header } from './components';
 // import CreateRoom from './pages/CreateRoom';
 
 
-// import About from './pages/About.js';
+import About from './pages/About.js';
 
-// import HowTo from './pages/HowTo.js';
-
-// import Header from './components/Header';
-
-// import Footer from './components/Footer';
-
+import HowTo from './pages/HowTo.js';
 
 
 const client = new ApolloClient({
@@ -55,6 +50,14 @@ function App() {
               <Route
                 exact path="/qr"
                 component={QR }
+              />
+              <Route
+                exact path="/howto"
+                component={HowTo }
+              />
+              <Route
+                exact path="/about"
+                component={About }
               />
               <Route
                 path="/room/:roomCode"
