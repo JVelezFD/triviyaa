@@ -14,6 +14,7 @@ const Header = () => {
       </div>
       <div>
       <AuthNav />
+    
       </div>
     </header>
   );

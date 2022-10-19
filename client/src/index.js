@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
+import openSocket from "socket.io-client"
 
+const ENDPOINT = "https://triviyaa.herokuapp.com/"
+const socket = openSocket(ENDPOINT, { transports: ["websocket"] })
 ReactDOM.render(
   <React.StrictMode>
     <Auth0ProviderWithHistory>
-    <App />
+    <App socket={socket}  />
     </Auth0ProviderWithHistory>
   </React.StrictMode>,
   document.getElementById('root')

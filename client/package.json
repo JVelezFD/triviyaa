@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "socket-io-client",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
@@ -24,10 +24,12 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.1",
+    "file-loader": "^6.2.0",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4",
     "jwt-decode": "^3.1.2",
+    "socket.io-client": "^3.1.1",
     "react-router-dom": "^5.2.0",
     "graphql": "^15.4.0",
     "@apollo/client": "^3.5.8"
