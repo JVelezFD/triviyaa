@@ -14,14 +14,6 @@ const Header = () => {
       </div>
       <div>
       <AuthNav />
-      <Link
-          to="/profile" 
-          exact
-      className="nav-link"
-      activeClassName="router-link-exact-active"
-    >
-      Profile
-      </Link>
       </div>
     </header>
   );
