@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+//import { useAuth0 } from '@auth0/auth0-react';
 
 // Import the `useParams()` hook from React Router
 import { useParams, useNavigate, useHistory } from 'react-router-dom';
+// const { user } = useAuth0();
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_ROOM, ADD_QUESTION } from '../utils/mutations';
 import { QUERY_SINGLE_QUESTION, QUERY_SINGLE_ROOM } from '../utils/queries';
